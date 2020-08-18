@@ -1,0 +1,144 @@
+<?php
+include "config.php";
+
+
+if(isset($_POST['but_submit'])){
+
+    $uname = mysqli_real_escape_string($con,$_POST['txt_uname']);
+    $password = mysqli_real_escape_string($con,$_POST['txt_pwd']);
+
+
+    if ($uname != "" && $password != ""){
+
+        $sql_query = "select count(*) as cntUser from users where username='".$uname."' and password='".$password."'";
+        $result = mysqli_query($con,$sql_query);
+        $row = mysqli_fetch_array($result);
+
+        $count = $row['cntUser'];
+
+        if($count > 0){
+            $_SESSION['uname'] = $uname;
+            header('Location: admin.php');
+        }else{
+            echo "Invalid username and password";
+        }
+
+    }
+
+}
+?>
+<html>
+<head>
+
+<style>
+    body{
+      
+  margin: auto;
+  padding: 0;
+  font-family: sans-serif;
+  background-image: url(bgpic.jpg);
+    background-size: cover;
+        background-attachment: fixed;
+    }
+    
+        
+    
+#div_login{
+     
+    width: 500px;
+    height: 500px;
+  padding: 80px;
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background-color:transparent;
+  text-align: center;
+ 
+}
+
+#div_login h2{
+    
+    font-weight: normal;
+    text-align: center;
+      font-family: 'Open Sans', sans-serif;
+     border:0;
+    padding: 10px 40px
+  
+  display: block;
+  margin: 20px auto;
+  outline: none;
+  color: white;
+    border-radius: 24px;
+  cursor: pointer; 
+    font-weight: 500;
+}
+
+
+ 
+
+
+#div_login .textbox{
+  
+   width: 80%;
+  padding: 12px 40px;
+  margin: 8px 0;
+  display: inline-block;c 
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+    text-align: center;
+          font-family: 'Open Sans', sans-serif;
+         border-radius:10px;
+    }
+.imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+  position: inherit;
+}
+#div_login input[type=submit]{
+    width: 80%;
+    border:0;
+  background-color:royalblue;
+  display: block;
+  margin: 20px auto;
+  text-align: center ;
+border: 2px solid black;
+  padding: 14px 40px;
+  outline: none;
+  color: white  ;
+  cursor: pointer;
+    border-radius:10px;
+    font-family: 'Open Sans', sans-serif;
+}
+  
+    
+    </style>
+
+    </head>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins:wght@300&display=swap" rel="stylesheet">
+    <body>
+      <h5><b> <marquee direction="right" bgcolor="lightgreen">Project name:"Student Information System",Group members:Subrina Islam Shitol and Sania tahsin Tuktuky</marquee></b></h5>
+      <div class="imgcontainer">
+      
+      <img src="student_icon.png" alt="Avatar" class="avatar">
+<div class="container">
+ <form method="post" action="">
+     <div id="div_login">
+     
+     <div>
+      <input type="text" class="textbox" id="txt_uname" name="txt_uname" placeholder="Enter Username" />
+         </div>
+         <div>
+         <input type="password" class="textbox" id="txt_uname" name="txt_pwd" placeholder="Enter Password"/>
+ </div>
+ <div id="container">
+
+     <input type="submit" value=" LOGIN" name="but_submit" id="but_submit">
+    </div>
+ </div>
+</form>
+ </div>
+ 
+</body>
+</html>
+
